@@ -1,0 +1,46 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <!--<item name="textColorPrimary">@color/black</item>-->
+    </style>
+
+    <style name="FullscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorPrimaryDark">@color/colorPrimary</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!-- <item name="android:colorPrimary">@color/primaryColor</item>
+         <item name="android:colorPrimaryDark">@color/primaryColor</item>
+         <item name="android:colorAccent">@color/accentColor</item>
+         <item name="android:colorButtonNormal">@color/primaryColor</item>-->
+
+    </style>
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:colorButtonNormal">@color/colorPrimary</item>
+
+    </style>
+
+    <!--<style name="FullscreenTheme" parent="AppTheme">-->
+        <!--<item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>-->
+        <!--<item name="android:windowActionBarOverlay">true</item>-->
+        <!--<item name="android:windowBackground">@null</item>-->
+        <!--<item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>-->
+        <!--<item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>-->
+
+        <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+        <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
+    <!--</style>-->
+
+    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
+</resources>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.twilio.mchopra.demoapp.Activity.ChooseModeActivity">
+
+    <TextView
+        android:id="@+id/choose_mode_intro_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_mode_intro_text"
+        android:layout_marginTop="@dimen/dimen_32dp"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/button_ride_mode"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_mode_ride"
+        android:textSize="20dp"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/choose_mode_intro_text"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/button_background"/>
+
+    <TextView
+        android:id="@+id/choose_mode_or"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OR"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/black"
+        android:layout_below="@id/button_ride_mode"
+        android:textSize="25sp"
+        android:layout_centerHorizontal="true"/>
+
+
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_mode_drive"
+        android:id="@+id/button_drive_mode"
+        android:textSize="20dp"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/choose_mode_or"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/button_background"/>
+
+
+    <Button
+        android:id="@+id/button_carpool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_mode_carpool"
+        android:textSize="20dp"
+        android:enabled="false"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimaryFaded"
+        android:drawableRight="@drawable/ic_arrow"/>
+
+
+
+
+</RelativeLayout>
