@@ -95,6 +95,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if("drive".equals(sharedPreferences.getAppMode())){
             Intent intent = new Intent(this, AddAvailbilityActivity.class);
             startActivity(intent);
+        } else {
+            //Request a ride.
+            Intent intent = new Intent(this, AddARideActivity.class);
+            startActivity(intent);
         }
 
     }

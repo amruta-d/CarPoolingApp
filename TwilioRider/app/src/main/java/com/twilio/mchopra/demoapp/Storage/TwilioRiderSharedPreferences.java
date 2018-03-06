@@ -82,4 +82,14 @@ public class TwilioRiderSharedPreferences {
         return workerId;
     }
 
+    public void setTaskSid(String taskSid){
+        SharedPreferences.Editor spEditor = sharedPreferences.edit();
+        spEditor.putString("taskSid", taskSid);
+        spEditor.commit();
+    }
+    public String getTaskSidId(){
+        String taskSid = sharedPreferences.getString("taskSid", "");
+        return taskSid;
+    }
+
 }
