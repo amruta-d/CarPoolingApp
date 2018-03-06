@@ -26,6 +26,7 @@ public class ChooseModeActivity extends AppCompatActivity implements View.OnClic
 
     private Button mRideButton, mDriveButton, mCarPoolButton;
     private TwilioRiderSharedPreferences sharedPreferences;
+    private String appModeStr, workerIdStr;
 
 
     @Override
@@ -54,14 +55,14 @@ public class ChooseModeActivity extends AppCompatActivity implements View.OnClic
                 mRideButton.setTextColor(getResources().getColor(R.color.white));
                 mDriveButton.setBackgroundColor(getResources().getColor(R.color.white));
                 mDriveButton.setTextColor(getResources().getColor(R.color.colorPrimary));
-                sharedPreferences.setAppMode("ride");
+                appModeStr = "ride";
                 mCarPoolButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 mCarPoolButton.setEnabled(true);
                 break;
             case R.id.button_drive_mode:
                 mDriveButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 mDriveButton.setTextColor(getResources().getColor(R.color.white));
-                sharedPreferences.setAppMode("drive");
+                appModeStr = "drive";
                 mRideButton.setBackgroundColor(getResources().getColor(R.color.white));
                 mRideButton.setTextColor(getResources().getColor(R.color.colorPrimary));
                 mCarPoolButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
@@ -74,6 +75,9 @@ public class ChooseModeActivity extends AppCompatActivity implements View.OnClic
             case R.id.button_carpool:
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
+                sharedPreferences.setAppMode(appModeStr);
+                if("drive".equals(appModeStr))
+                    sharedPreferences.setWorkerId(workerIdStr);
                 break;
         }
     }
@@ -133,7 +137,8 @@ public class ChooseModeActivity extends AppCompatActivity implements View.OnClic
 
         @Override
         protected void onPostExecute(String workerId) {
-            sharedPreferences.setWorkerId(workerId);
+
+            workerIdStr = workerId;
 
         }
     }

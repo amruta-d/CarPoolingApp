@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     case R.id.logout_drawer:
                         sharedPreferences.setUserLoggedIn(false);
                         sharedPreferences.setAppMode("");
+                        sharedPreferences.setWorkerId("");
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
