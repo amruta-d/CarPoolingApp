@@ -15,10 +15,10 @@ import com.twilio.mchopra.demoapp.Storage.User;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText mUserName, mPasswordView;
+    private EditText mName, mPhoneNo, mPassword;
     private View mProgressView;
     private Button mLogin;
-    private String mUsernameStr, mPasswordStr;
+    private String mNameStr, mPhoneNoStr, mPasswordStr;
     private User mCurrentUser;
     private TwilioRiderSharedPreferences sharedPreferences;
 
@@ -34,17 +34,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void init() {
         sharedPreferences = new TwilioRiderSharedPreferences(this);
-        mUserName = (EditText) findViewById(R.id.etUsername);
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPhoneNo = (EditText) findViewById(R.id.etPhoneNo);
+        mPassword = (EditText) findViewById(R.id.etPassword);
+        mName = (EditText) findViewById(R.id.etName);
         mLogin = (Button) findViewById(R.id.sign_in_button);
         mProgressView = (ProgressBar) findViewById(R.id.login_progress);
     }
 
     @Override
     public void onClick(View view) {
-        mUsernameStr = mUserName.getText().toString();
-        mPasswordStr = mPasswordView.getText().toString();
-        mCurrentUser = new User(mUsernameStr, mPasswordStr);
+        mNameStr = mName.getText().toString();
+        mPhoneNoStr = mPhoneNo.getText().toString();
+        mPasswordStr = mPassword.getText().toString();
+        mCurrentUser = new User(mNameStr, mPhoneNoStr, mPasswordStr);
         sharedPreferences.setUserLoggedIn(true);
         sharedPreferences.setLoggedInUserData(mCurrentUser);
         Intent intent = new Intent(this, ChooseModeActivity.class);

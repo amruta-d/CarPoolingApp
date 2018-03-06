@@ -44,7 +44,8 @@ public class TwilioRiderSharedPreferences {
         try {
             SharedPreferences.Editor spEditor = sharedPreferences.edit();
 
-            spEditor.putString("username", user.getUsername());
+            spEditor.putString("name", user.getName());
+            spEditor.putString("phoneNo", user.getPhoneNo());
             spEditor.putString("password", user.getPassword());
             spEditor.commit();
         }
@@ -54,9 +55,10 @@ public class TwilioRiderSharedPreferences {
         }
     }
     public User getLoggedInUserData(){
-        String username = sharedPreferences.getString("username", "");
+        String name = sharedPreferences.getString("name","");
+        String phoneNo = sharedPreferences.getString("phoneNo", "");
         String password = sharedPreferences.getString("password","");
-        User loggedInUser = new User(username,password);
+        User loggedInUser = new User(name, phoneNo, password);
         return loggedInUser;
     }
 
@@ -68,6 +70,16 @@ public class TwilioRiderSharedPreferences {
     public String getAppMode(){
         String appMode = sharedPreferences.getString("appMode", "");
         return appMode;
+    }
+
+    public void setWorkerId(String workerId){
+        SharedPreferences.Editor spEditor = sharedPreferences.edit();
+        spEditor.putString("workerId", workerId);
+        spEditor.commit();
+    }
+    public String getWorkerId(){
+        String workerId = sharedPreferences.getString("workerId", "");
+        return workerId;
     }
 
 }

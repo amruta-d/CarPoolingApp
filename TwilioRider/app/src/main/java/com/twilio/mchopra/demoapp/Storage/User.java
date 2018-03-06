@@ -5,16 +5,21 @@ package com.twilio.mchopra.demoapp.Storage;
  */
 
 public class User {
-    private String username, password;
+    private String name, phoneNo, password;
 
 
-    public User(String username, String password){
-        this.username = username;
+    public User(String name, String phoneNo, String password){
+        this.name = name;
+        this.phoneNo = phoneNo;
         this.password = password;
     }
 
-    public String getUsername(){
-        return username;
+    public String getName(){
+        return name;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
     }
 
     public String getPassword(){

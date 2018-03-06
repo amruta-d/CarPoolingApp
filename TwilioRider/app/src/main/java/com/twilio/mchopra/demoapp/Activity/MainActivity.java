@@ -20,8 +20,6 @@ import com.twilio.mchopra.demoapp.R;
 import com.twilio.mchopra.demoapp.Storage.TwilioRiderSharedPreferences;
 import com.twilio.mchopra.demoapp.Storage.User;
 
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private Toolbar mToolBar;
     private RecyclerView mRecyclerView;
@@ -45,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mNoUpcomingRides = (TextView) findViewById(R.id.text_no_upcoming_rides);
         getRideDetails();
+        setTitle("Hello " + sharedPreferences.getLoggedInUserData().getName());
 
 
         try {
@@ -93,8 +92,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void onClick(View view) {
-        Intent intent = new Intent(this, AddARideActivity.class);
-        startActivity(intent);
+        if("drive".equals(sharedPreferences.getAppMode())){
+            Intent intent = new Intent(this, AddAvailbilityActivity.class);
+            startActivity(intent);
+        }
 
     }
 

@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +17,6 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activity.MainActivity"
-            android:label="Hello Mehul"
             android:theme="@style/AppTheme.Base" />
         <activity
             android:name=".Activity.SplashActivity"
@@ -36,7 +36,8 @@
         <activity
             android:name=".Activity.ChooseModeActivity"
             android:label="@string/title_activity_choose_mode" />
-        <activity android:name=".Activity.AddARideActivity"></activity>
+        <activity android:name=".Activity.AddARideActivity" />
+        <activity android:name=".Activity.AddAvailbilityActivity"></activity>
     </application>
 
 </manifest>
