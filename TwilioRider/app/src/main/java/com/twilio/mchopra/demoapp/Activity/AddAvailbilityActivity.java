@@ -2,9 +2,12 @@ package com.twilio.mchopra.demoapp.Activity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -32,6 +35,8 @@ public class AddAvailbilityActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_availbility);
         setTitle("Add availability");
+        ActionBar bar = getSupportActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
         init();
         dateFormatter = new SimpleDateFormat("MMM d, yyyy", Locale.US);
         dateFormatter1 = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
@@ -43,6 +48,28 @@ public class AddAvailbilityActivity extends AppCompatActivity implements View.On
         setFromTime();
         setToTime();
 
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void  onBackPressed() {
+        if(isTaskRoot()){
+            Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intentMain);
+        } else {
+            finish();
+        }
 
     }
 
@@ -74,7 +101,10 @@ public class AddAvailbilityActivity extends AppCompatActivity implements View.On
         timePickerFromDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                availabilityFromTimeStr = hourOfDay + ":" + minute;
+                if(minute<10)
+                    availabilityFromTimeStr = hourOfDay + ":0" + minute;
+                else
+                    availabilityFromTimeStr = hourOfDay + ":" + minute;
                 mBtnFromTime.setText(availabilityFromTimeStr);
 
             }
@@ -87,8 +117,11 @@ public class AddAvailbilityActivity extends AppCompatActivity implements View.On
         timePickerToDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                availabilityToTimeStr = hourOfDay + ":" + minute;
-                mBtnToTime.setText(availabilityToTimeStr);
+                if(minute<10)
+                    availabilityToTimeStr = hourOfDay + ":0" + minute;
+                else
+                    availabilityToTimeStr = hourOfDay + ":" + minute;
+                    mBtnToTime.setText(availabilityToTimeStr);
 
             }
         }, newCalendar.get(Calendar.HOUR_OF_DAY), newCalendar.get(Calendar.MINUTE),true);
@@ -110,8 +143,6 @@ public class AddAvailbilityActivity extends AppCompatActivity implements View.On
             case R.id.btn_set_Availability:
                 etFromAddStr = mEtFromAddress.getText().toString();
 
-                //call task to create
-                //get radio button value
 
         }
 

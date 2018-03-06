@@ -2,11 +2,14 @@ package com.twilio.mchopra.demoapp.Activity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -48,6 +51,8 @@ public class AddARideActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_aride);
         setTitle("Request a ride");
+        ActionBar bar = getSupportActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
         init();
         dateFormatter = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
         mBtnSelectDate.setOnClickListener(this);
@@ -86,7 +91,10 @@ public class AddARideActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 hourToUse = String.valueOf(hourOfDay);
-                availabilityFromTimeStr = hourOfDay + ":" + minute;
+                if(minute<10)
+                    availabilityFromTimeStr = hourOfDay + ":0" + minute;
+                else
+                    availabilityFromTimeStr = hourOfDay + ":" + minute;
                 mBtnFromTime.setText(availabilityFromTimeStr);
 
             }
@@ -112,6 +120,28 @@ public class AddARideActivity extends AppCompatActivity implements View.OnClickL
                 }
                 break;
 
+        }
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void  onBackPressed() {
+        if(isTaskRoot()){
+            Intent intentMain = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intentMain);
+        } else {
+            finish();
         }
 
     }
