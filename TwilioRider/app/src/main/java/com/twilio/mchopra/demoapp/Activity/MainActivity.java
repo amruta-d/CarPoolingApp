@@ -49,8 +49,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d("worker ID1", sharedPreferences.getWorkerId());
 
         if(sharedPreferences.getAppMode().equalsIgnoreCase("ride")){
-            // See if pending task is already set.
-            getRideDetails();
+
+            if(sharedPreferences.getReservationSid() != null && sharedPreferences.getReservationSid().length() > 0){
+                // This means the reservation has been accepted and we need to display message.
+                displayAcceptedReservation();
+
+            } else {
+                getRideDetails();
+            }
+
 
         } else {
             // drive. Show availability
@@ -88,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         sharedPreferences.setWorkerId("");
                         sharedPreferences.setTaskSid("");
                         sharedPreferences.setAvailabilityMessage("");
+                        sharedPreferences.setReservationSid("");
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
@@ -125,7 +133,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(sharedPreferences.getTaskSid() != null && sharedPreferences.getTaskSid().length() > 1){
             mNoUpcomingRides.setVisibility(View.INVISIBLE);
             upcomingRide.setVisibility(View.VISIBLE);
-            upcomingRide.setText(sharedPreferences.getTaskSid() + "scheduled for user "+currentLoggedUser.getName() );
+            upcomingRide.setText("Hi "+currentLoggedUser.getName()+". Please hang tight while we are looking for a Twilion to give you a ride." );
+        } else {
+            mNoUpcomingRides.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void displayAcceptedReservation(){
+        User currentLoggedUser = sharedPreferences.getLoggedInUserData();
+
+        if(sharedPreferences.getReservationSid() != null && sharedPreferences.getReservationSid().length() > 1){
+            mNoUpcomingRides.setVisibility(View.INVISIBLE);
+            upcomingRide.setVisibility(View.VISIBLE);
+            upcomingRide.setText("Congratulations "+currentLoggedUser.getName()+ "!! We found you a ride. You will be riding with John.");
         } else {
             mNoUpcomingRides.setVisibility(View.VISIBLE);
         }

@@ -6,6 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -46,6 +49,8 @@ public class AddARideActivity extends AppCompatActivity implements View.OnClickL
     private Button mBtnFromTime;
     private String hourToUse;
     private RadioGroup radioGroup;
+    private Handler handler;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +67,9 @@ public class AddARideActivity extends AppCompatActivity implements View.OnClickL
 
         setDate();
         setToTime();
+
+        handler = new Handler();
+
     }
 
     private void init() {
@@ -210,10 +218,112 @@ public class AddARideActivity extends AppCompatActivity implements View.OnClickL
         @Override
         protected void onPostExecute(String taskSid) {
             sharedPreferences.setTaskSid(taskSid);
+            handler.post(new TaskPoller(taskSid));
             Intent intent = new Intent(context, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
 
         }
     }
+
+    class TaskPoller implements Runnable{
+        TwilioRiderSharedPreferences sharedPreferences = new TwilioRiderSharedPreferences(getApplicationContext());
+
+        String taskSid;
+        TaskPoller(String taskSid){
+            this.taskSid = taskSid;
+        }
+
+        @Override
+        public void run() {
+            if(sharedPreferences.getReservationSid() == null || sharedPreferences.getReservationSid().length() == 0){
+                handler.postDelayed(this, 10000);
+                System.out.println("Fetching reservation with taskSid" + taskSid );
+                new GetReservation(getApplicationContext()).execute(taskSid);
+            } else {
+                System.out.println("No polling as reservation was found");
+            }
+
+
+        }
+    }
+
+    public class GetReservation extends AsyncTask<String, Void, String> {
+        TwilioRiderSharedPreferences sharedPreferences = new TwilioRiderSharedPreferences(getApplicationContext());
+        Context context;
+
+        private GetReservation(Context context){
+            this.context = context.getApplicationContext();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String reservationSid = null;
+            try {
+
+                Properties props = new Properties();
+                AssetManager assetManager = getApplicationContext().getAssets();
+                InputStream inputStreamProps = assetManager.open("server.properties");
+                props.load(inputStreamProps);
+                HttpURLConnection urlConnection;
+
+                String urlStr = props.getProperty("SERVER_BASE_URL") + "/task_reservations";
+                URL url = new URL(urlStr);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("POST");
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("task_sid", params[0]);
+
+                urlConnection.connect();
+
+                DataOutputStream postBody = new DataOutputStream(urlConnection.getOutputStream());
+                postBody.writeBytes(jsonObject.toString());
+                postBody.flush();
+                postBody.close();
+
+                System.out.println("Response Code" + urlConnection.getResponseCode());
+
+                // Read the input stream into a String
+                InputStream inputStream = urlConnection.getInputStream();
+                StringBuffer buffer = new StringBuffer();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
+                    // But it does make debugging a *lot* easier if you print out the completed
+                    // buffer for debugging.
+                    buffer.append(line + "\n");
+                }
+                JSONObject jsonObjectResponse = new JSONObject(buffer.toString());
+                System.out.println(jsonObjectResponse);
+                if(jsonObjectResponse.has("reservation_sid") && jsonObjectResponse.has("reservation_status") && jsonObjectResponse.getString("reservation_status").equalsIgnoreCase("accepted")){
+                    reservationSid = jsonObjectResponse.getString("reservation_sid");
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("ERROR", e.getMessage());
+            }
+            return reservationSid;
+        }
+
+        @Override
+        protected void onPostExecute(String reservationSid) {
+            if(reservationSid != null && reservationSid.length() > 1){
+                sharedPreferences.setReservationSid(reservationSid);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(intent);
+            }
+
+//            handler.post(new TaskPoller(taskSid));
+//            Intent intent = new Intent(context, MainActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            context.startActivity(intent);
+
+        }
+    }
+
+
 }

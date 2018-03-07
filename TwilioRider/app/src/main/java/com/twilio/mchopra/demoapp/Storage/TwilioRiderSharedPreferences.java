@@ -103,4 +103,14 @@ public class TwilioRiderSharedPreferences {
         return availabilityMessage;
     }
 
+    public void setReservationSid(String reservationSid){
+        SharedPreferences.Editor spEditor = sharedPreferences.edit();
+        spEditor.putString("reservationSid", reservationSid);
+        spEditor.commit();
+    }
+    public String getReservationSid(){
+        String reservationSid = sharedPreferences.getString("reservationSid", "");
+        return reservationSid;
+    }
+
 }
