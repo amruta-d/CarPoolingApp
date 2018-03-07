@@ -21,12 +21,28 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Properties;
+import android.os.Handler;
+import android.widget.Toast;
 
 public class ChooseModeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button mRideButton, mDriveButton, mCarPoolButton;
     private TwilioRiderSharedPreferences sharedPreferences;
     private String appModeStr, workerIdStr;
+//    AlarmReceiver alarm;
+    private Handler handler = new Handler();
+    private Runnable runnableCode = new Runnable() {
+        @Override
+        public void run() {
+            // Do something here on the main thread
+            Log.d("Handlers", "Called on main thread");
+//            Toast.makeText(this,"sdjbsdjh",Toast.LENGTH_SHORT);
+            // Repeat this the same runnable code block again another 2 seconds
+            // 'this' is referencing the Runnable object
+            handler.postDelayed(this, 2000);
+        }
+    }; // Start the initial runnable task by posting through the handler
+//         handler.post(runnableCode);
 
 
     @Override
@@ -45,6 +61,7 @@ public class ChooseModeActivity extends AppCompatActivity implements View.OnClic
         mRideButton = (Button) findViewById(R.id.button_ride_mode);
         mDriveButton = (Button) findViewById(R.id.button_drive_mode);
         mCarPoolButton = (Button) findViewById(R.id.button_carpool);
+//        alarm =  new AlarmReceiver();
     }
 
     @Override
@@ -76,8 +93,15 @@ public class ChooseModeActivity extends AppCompatActivity implements View.OnClic
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 sharedPreferences.setAppMode(appModeStr);
-                if("drive".equals(appModeStr))
-                    sharedPreferences.setWorkerId(workerIdStr);
+                if("drive".equals(appModeStr)) {
+//                    sharedPreferences.setWorkerId(workerIdStr);
+                      handler.post(runnableCode);
+
+                }
+
+                else if ("ride".equals(appModeStr))
+//                    alarm.setAlarm(this,"ride");
+
                 break;
         }
     }
@@ -127,6 +151,8 @@ public class ChooseModeActivity extends AppCompatActivity implements View.OnClic
                 }
                 JSONObject jsonObjectResponse = new JSONObject(buffer.toString());
                 workerId = jsonObjectResponse.getString("id");
+                Log.d("workerId", workerId);
+                sharedPreferences.setWorkerId(workerId);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -135,12 +161,13 @@ public class ChooseModeActivity extends AppCompatActivity implements View.OnClic
             return workerId;
         }
 
-        @Override
-        protected void onPostExecute(String workerId) {
-
-            workerIdStr = workerId;
-
-        }
+//        @Override
+//        protected void onPostExecute(String workerId) {
+//
+//            workerIdStr = workerId;
+//            sharedPreferences.setWorkerId(workerId);
+//
+//        }
     }
 
 

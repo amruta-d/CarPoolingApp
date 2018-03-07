@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mNoUpcomingRides = (TextView) findViewById(R.id.text_no_upcoming_rides);
         getRideDetails();
         setTitle("Hello " + sharedPreferences.getLoggedInUserData().getName());
+        Log.d("worker ID1", sharedPreferences.getWorkerId());
 
 
         try {
