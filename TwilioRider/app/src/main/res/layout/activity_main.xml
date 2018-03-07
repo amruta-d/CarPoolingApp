@@ -35,8 +35,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/main_activity_title_text"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
 
             <View
                 android:layout_width="match_parent"
@@ -52,18 +53,168 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/main_activity_title_text"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textSize="24sp"
+                android:textStyle="bold|italic"
+                android:textColor="@color/black"/>
+
 
         </LinearLayout>
 
-        <view
-            android:id="@+id/main_activity_recycler_view"
-            class="android.support.v7.widget.RecyclerView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/main_activity_linear_layout"
-            android:layout_centerHorizontal="true"/>
+        <RelativeLayout
+            android:id="@+id/relative_layout_driver_availability"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_below="@id/main_activity_linear_layout"
+            android:background="@drawable/main_activity_background"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:visibility="gone">
+            <TextView
+                android:id="@+id/relative_layout_driver_availability_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status: You have set your availability!"
+                android:layout_margin="8dp"
+                android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/relative_layout_driver_availability_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relative_layout_driver_availability_text1"
+                android:text="Time"
+                android:layout_marginLeft="8dp"
+                android:textSize="20sp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relative_layout_driver_pending_task"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@id/main_activity_linear_layout"
+            android:background="@drawable/main_activity_background"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:visibility="gone">
+            <TextView
+                android:id="@+id/relative_layout_driver_pending_task_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="We found a matching rider!"
+                android:textStyle="italic"
+                android:layout_margin="8dp"
+                android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/relative_layout_driver_pending_task_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relative_layout_driver_pending_task_text1"
+                android:text="Rider Name"
+                android:layout_marginLeft="8dp"
+                android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/relative_layout_driver_pending_task_text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relative_layout_driver_pending_task_text2"
+                android:text="From"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:textSize="20sp"/>
+
+            <Button
+                android:id="@+id/relative_layout_driver_pending_task_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="6dp"
+                android:layout_marginEnd="14dp"
+                android:layout_toStartOf="@+id/relative_layout_driver_pending_task_button2"
+                android:text="accept"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/relative_layout_driver_pending_task_button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/relative_layout_driver_pending_task_button"
+                android:layout_alignBottom="@+id/relative_layout_driver_pending_task_button"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="8dp"
+                android:text="Reject"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relative_layout_driver_upcoming_ride"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_below="@id/main_activity_linear_layout"
+            android:background="@drawable/main_activity_background"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/relative_layout_driver_upcoming_ride_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You have one upcoming ride!"
+                android:textStyle="italic"
+                android:layout_margin="8dp"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/relative_layout_driver_upcoming_ride_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relative_layout_driver_upcoming_ride_text1"
+                android:text="With"
+                android:layout_marginLeft="8dp"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/relative_layout_driver_upcoming_ride_text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relative_layout_driver_upcoming_ride_text2"
+                android:text="From"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:textSize="20sp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@id/main_activity_linear_layout"
+            android:background="@drawable/main_activity_background"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:visibility="gone">
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@id/main_activity_linear_layout"
+            android:background="@drawable/main_activity_background"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:visibility="gone">
+
+        </RelativeLayout>
+
+        <!--<view-->
+            <!--android:id="@+id/main_activity_recycler_view"-->
+            <!--class="android.support.v7.widget.RecyclerView"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/main_activity_linear_layout"-->
+            <!--android:layout_centerHorizontal="true"/>-->
 
         <TextView
             android:id="@+id/text_no_upcoming_rides"

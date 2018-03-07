@@ -23,7 +23,7 @@
 
 
     <!-- Strings related to choose mode activity-->
-    <string name="choose_mode_intro_text">Would you prefer to?</string>
+    <string name="choose_mode_intro_text">Would you like to?</string>
     <string name="choose_mode_ride">Ride</string>
     <string name="choose_mode_drive">Drive</string>
     <string name="choose_mode_carpool">Start Carpooling</string>

@@ -1,10 +1,15 @@
 package com.twilio.mchopra.demoapp.Activity;
 
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -298,6 +303,24 @@ public class AddARideActivity extends AppCompatActivity implements View.OnClickL
                 System.out.println(jsonObjectResponse);
                 if(jsonObjectResponse.has("reservation_sid") && jsonObjectResponse.has("reservation_status") && jsonObjectResponse.getString("reservation_status").equalsIgnoreCase("accepted")){
                     reservationSid = jsonObjectResponse.getString("reservation_sid");
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+
+                    PendingIntent pIntent = PendingIntent.getActivity(getApplicationContext(),
+                            (int) System.currentTimeMillis(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                    Notification n = new Notification.Builder(getApplicationContext())
+                            .setContentTitle("Ride Accepted")
+                            .setContentText("We found you a ride!")
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setContentIntent(pIntent)
+                            .setAutoCancel(true)
+                            .setSound(soundUri)
+                            .build();
+                    NotificationManager notificationManager =
+                            (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+                    notificationManager.notify(2, n);
+
                 }
 
 

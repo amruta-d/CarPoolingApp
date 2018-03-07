@@ -30,18 +30,18 @@ public class ChooseModeActivity extends AppCompatActivity implements View.OnClic
     private TwilioRiderSharedPreferences sharedPreferences;
     private String appModeStr, workerIdStr;
 //    AlarmReceiver alarm;
-    private Handler handler = new Handler();
-    private Runnable runnableCode = new Runnable() {
-        @Override
-        public void run() {
-            // Do something here on the main thread
-            Log.d("Handlers", "Called on main thread");
-//            Toast.makeText(this,"sdjbsdjh",Toast.LENGTH_SHORT);
-            // Repeat this the same runnable code block again another 2 seconds
-            // 'this' is referencing the Runnable object
-            handler.postDelayed(this, 2000);
-        }
-    }; // Start the initial runnable task by posting through the handler
+//    private Handler handler = new Handler();
+//    private Runnable runnableCode = new Runnable() {
+//        @Override
+//        public void run() {
+//            // Do something here on the main thread
+//            Log.d("Handlers", "Called on main thread");
+////            Toast.makeText(this,"sdjbsdjh",Toast.LENGTH_SHORT);
+//            // Repeat this the same runnable code block again another 2 seconds
+//            // 'this' is referencing the Runnable object
+//            handler.postDelayed(this, 2000);
+//        }
+//    }; // Start the initial runnable task by posting through the handler
 //         handler.post(runnableCode);
 
 
@@ -75,6 +75,7 @@ public class ChooseModeActivity extends AppCompatActivity implements View.OnClic
                 appModeStr = "ride";
                 mCarPoolButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 mCarPoolButton.setEnabled(true);
+                sharedPreferences.setWorkerId("");
                 break;
             case R.id.button_drive_mode:
                 mDriveButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
@@ -93,14 +94,8 @@ public class ChooseModeActivity extends AppCompatActivity implements View.OnClic
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 sharedPreferences.setAppMode(appModeStr);
-                if("drive".equals(appModeStr)) {
-//                    sharedPreferences.setWorkerId(workerIdStr);
-                      handler.post(runnableCode);
-
-                }
-
-                else if ("ride".equals(appModeStr))
-//                    alarm.setAlarm(this,"ride");
+//                if("drive".equals(appModeStr))
+//                      handler.post(runnableCode);
 
                 break;
         }
