@@ -21,9 +21,9 @@
         android:id="@+id/logo_image_view"
         android:layout_width="100sp"
         android:layout_height="50dp"
+        android:layout_alignTop="@+id/textview_set_date"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/img_view"
-        android:layout_marginTop="@dimen/dimen_32dp">
+        android:src="@drawable/img_view">
 
     </ImageView>
 
@@ -53,9 +53,8 @@
         android:id="@+id/logo_image_view_1"
         android:layout_width="100sp"
         android:layout_height="50dp"
-        android:layout_alignStart="@+id/logo_image_view"
         android:layout_alignTop="@+id/textview_set_time"
-        android:layout_marginTop="11dp"
+        android:layout_centerHorizontal="true"
         android:src="@drawable/img_view">
 
     </ImageView>
@@ -108,10 +107,9 @@
         android:id="@+id/logo_image_view_2"
         android:layout_width="100sp"
         android:layout_height="50dp"
-        android:layout_alignStart="@+id/logo_image_view"
         android:layout_alignTop="@+id/textview_set_from_add"
-        android:layout_marginTop="11dp"
-        android:src="@drawable/img_view"/>
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/img_view" />
 
     <EditText
         android:id="@+id/et_add_from_add"
@@ -143,10 +141,9 @@
         android:id="@+id/logo_image_view_3"
         android:layout_width="100sp"
         android:layout_height="50dp"
-        android:layout_alignStart="@+id/logo_image_view"
         android:layout_alignTop="@+id/textview_set_to_add"
-        android:layout_marginTop="11dp"
-        android:src="@drawable/img_view"/>
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/img_view" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/linear_layout_radio_group"

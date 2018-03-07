@@ -61,7 +61,7 @@ public class AddARideActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_aride);
-        setTitle("Request a ride");
+        setTitle("Request ride");
         ActionBar bar = getSupportActionBar();
         bar.setDisplayHomeAsUpEnabled(true);
         init();
