@@ -87,9 +87,20 @@ public class TwilioRiderSharedPreferences {
         spEditor.putString("taskSid", taskSid);
         spEditor.commit();
     }
-    public String getTaskSidId(){
+    public String getTaskSid(){
         String taskSid = sharedPreferences.getString("taskSid", "");
         return taskSid;
+    }
+
+    public void setAvailabilityMessage(String availabilityMessage){
+        SharedPreferences.Editor spEditor = sharedPreferences.edit();
+        spEditor.putString("availabilityMessage", availabilityMessage);
+        spEditor.commit();
+    }
+
+    public String getAvailabilityMessage(){
+        String availabilityMessage = sharedPreferences.getString("availabilityMessage", "");
+        return availabilityMessage;
     }
 
 }

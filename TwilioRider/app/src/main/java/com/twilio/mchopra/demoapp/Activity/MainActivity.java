@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FloatingActionButton mAddCarpoolInfo;
 //    private RecyclerAdapter mAdapter;
     private TextView mNoUpcomingRides;
+    private TextView upcomingRide;
 
 
 
@@ -42,9 +43,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mRecyclerView = (RecyclerView) findViewById(R.id.main_activity_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mNoUpcomingRides = (TextView) findViewById(R.id.text_no_upcoming_rides);
-        getRideDetails();
+        upcomingRide = (TextView) findViewById(R.id.upcoming_ride);
+        upcomingRide.setVisibility(View.INVISIBLE);
         setTitle("Hello " + sharedPreferences.getLoggedInUserData().getName());
         Log.d("worker ID1", sharedPreferences.getWorkerId());
+
+        if(sharedPreferences.getAppMode().equalsIgnoreCase("ride")){
+            // See if pending task is already set.
+            getRideDetails();
+
+        } else {
+            // drive. Show availability
+            getDriverAvailabilityDetails();
+        }
 
 
         try {
@@ -75,6 +86,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         sharedPreferences.setUserLoggedIn(false);
                         sharedPreferences.setAppMode("");
                         sharedPreferences.setWorkerId("");
+                        sharedPreferences.setTaskSid("");
+                        sharedPreferences.setAvailabilityMessage("");
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
@@ -108,18 +121,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getRideDetails(){
         User currentLoggedUser = sharedPreferences.getLoggedInUserData();
-        mNoUpcomingRides.setVisibility(View.VISIBLE);
-//        mAdapter = new RecyclerAdapter(ParentHomeScreen.this, children);
-//                        mRecyclerView.setAdapter(mAdapter);
-//                    } else {
-//                        textNoChild.setVisibility(View.VISIBLE);
-//                    }
-//                } else {
-//                    Log.d("Login", "Error: " + e.getMessage());
-//                }
-//
-//            }
-//        });
+
+        if(sharedPreferences.getTaskSid() != null && sharedPreferences.getTaskSid().length() > 1){
+            mNoUpcomingRides.setVisibility(View.INVISIBLE);
+            upcomingRide.setVisibility(View.VISIBLE);
+            upcomingRide.setText(sharedPreferences.getTaskSid() + "scheduled for user "+currentLoggedUser.getName() );
+        } else {
+            mNoUpcomingRides.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void getDriverAvailabilityDetails(){
+        User currentLoggedUser = sharedPreferences.getLoggedInUserData();
+        if(sharedPreferences.getAvailabilityMessage() != null && sharedPreferences.getAvailabilityMessage().length() > 1){
+            mNoUpcomingRides.setVisibility(View.INVISIBLE);
+            upcomingRide.setVisibility(View.VISIBLE);
+            upcomingRide.setText(sharedPreferences.getAvailabilityMessage());
+
+        } else {
+            mNoUpcomingRides.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

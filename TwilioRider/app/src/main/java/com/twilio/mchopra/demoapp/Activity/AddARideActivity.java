@@ -2,6 +2,7 @@ package com.twilio.mchopra.demoapp.Activity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
@@ -114,9 +115,9 @@ public class AddARideActivity extends AppCompatActivity implements View.OnClickL
             case R.id.btn_request_ride:
                 // Create task;
                 if( radioGroup.getCheckedRadioButtonId() == R.id.ride_to_sf){
-                    new RequestRide().execute(fromZip.getText().toString(), "94105", hourToUse);
+                    new RequestRide(this).execute(fromZip.getText().toString(), "94105", hourToUse);
                 } else {
-                    new RequestRide().execute(fromZip.getText().toString(), "94040", hourToUse);
+                    new RequestRide(this).execute(fromZip.getText().toString(), "94040", hourToUse);
                 }
                 break;
 
@@ -148,6 +149,11 @@ public class AddARideActivity extends AppCompatActivity implements View.OnClickL
 
     public class RequestRide extends AsyncTask<String, Void, String> {
         TwilioRiderSharedPreferences sharedPreferences = new TwilioRiderSharedPreferences(getApplicationContext());
+        Context context;
+
+        private RequestRide(Context context){
+            this.context = context.getApplicationContext();
+        }
 
         @Override
         protected String doInBackground(String... params) {
@@ -204,6 +210,9 @@ public class AddARideActivity extends AppCompatActivity implements View.OnClickL
         @Override
         protected void onPostExecute(String taskSid) {
             sharedPreferences.setTaskSid(taskSid);
+            Intent intent = new Intent(context, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
 
         }
     }
